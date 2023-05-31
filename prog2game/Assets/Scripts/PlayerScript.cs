@@ -67,5 +67,15 @@ public class PlayerScript : MonoBehaviour
     {
         score += value;
     }
+
+    public int GetPlayerLives()
+    {
+        return currentLives;
+    }
+
+    public int GetPlayerScore()
+    {
+        return score;
+    }
     
 }
