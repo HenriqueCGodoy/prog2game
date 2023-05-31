@@ -12,18 +12,24 @@ public class PlayerScript : MonoBehaviour
     private int currentLives;
     private int score;
 
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         currentLives = startingLives;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Shoot();
-        ClampPosition();
+        if (!gameManager.isGameOver())
+        {
+            Move();
+            Shoot();
+            ClampPosition();
+        }
     }
     
     private void Move()
@@ -65,7 +71,10 @@ public class PlayerScript : MonoBehaviour
 
     public void IncreaseScore(int value)
     {
-        score += value;
+        if (!gameManager.isGameOver())
+        {
+            score += value;
+        }
     }
 
     public int GetPlayerLives()
