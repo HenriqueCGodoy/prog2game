@@ -8,11 +8,14 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float maxPositionX;
     [SerializeField] private float minPositionX;
+    [SerializeField] private int startingLives;
+    private int currentLives;
+    private int score;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentLives = startingLives;
     }
 
     // Update is called once per frame
@@ -54,4 +57,15 @@ public class PlayerScript : MonoBehaviour
         float newPositionX = Mathf.Clamp(transform.position.x, minPositionX, maxPositionX);
         transform.position = new Vector2(newPositionX, transform.position.y);
     }
+
+    public void DamagePlayer()
+    {
+        currentLives--;
+    }
+
+    public void IncreaseScore(int value)
+    {
+        score += value;
+    }
+    
 }
