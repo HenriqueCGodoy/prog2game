@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,11 +13,16 @@ public class GameManager : MonoBehaviour
     private bool newHighScore;
     private bool gameOver;
 
+    //Panel
+    [SerializeField] private GameObject panelObject;
+    [SerializeField] private Text gameOverText;
+
     private PlayerScript playerScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        panelObject.SetActive(false);
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         newHighScore = false;
         gameOver = false;
@@ -33,14 +39,27 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateCanvasScore();
-        UpdateCanvasLives();
-        UpdateCanvasHighScore();
-        UpdateGameOver();
-        if(newHighScore)
+        if (!gameOver)
         {
-            SaveHighScore();
+            UpdateCanvasScore();
+            UpdateCanvasLives();
+            UpdateCanvasHighScore();
+            UpdateGameOver();
         }
+        else
+        {
+            panelObject.SetActive(true);
+            if(newHighScore)
+            {
+                SaveHighScore();
+                gameOverText.text = "Suas vidas acabaram !\nFim de jogo!\nSua pontuação: " + playerScript.GetPlayerScore() + "\nNovo Recorde, parabéns !";
+            }
+            else
+            {
+                gameOverText.text = "Suas vidas acabaram !\nFim de jogo!\nSua pontuação: " + playerScript.GetPlayerScore();
+            }
+        }
+        
     }
 
     private void UpdateCanvasScore()
@@ -89,6 +108,16 @@ public class GameManager : MonoBehaviour
     public bool isGameOver()
     {
         return gameOver;
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 }
