@@ -30,6 +30,7 @@ public class MoveLeftRight : MonoBehaviour
         if(transform.position.x <= minPositionX || transform.position.x >= maxPositionX)
         {
             currentSpeed = -currentSpeed;
+            Turn();
         }
     }
 
@@ -38,5 +39,12 @@ public class MoveLeftRight : MonoBehaviour
         //Limits player movement
         float newPositionX = Mathf.Clamp(transform.position.x, minPositionX, maxPositionX);
         transform.position = new Vector2(newPositionX, transform.position.y);
+    }
+
+    private void Turn()
+    {
+        float xScale = gameObject.transform.localScale.x;
+        float yScale = gameObject.transform.localScale.y;
+        gameObject.transform.localScale = new Vector2(-xScale, yScale);
     }
 }
