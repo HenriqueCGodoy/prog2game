@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    [SerializeField] private GameObject clearHighScorePanel;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        clearHighScorePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,11 +32,22 @@ public class MenuScript : MonoBehaviour
         Application.Quit();
     }
 
+    public void ClearHighScoreWindow()
+    {
+        clearHighScorePanel.SetActive(true);
+    }
+
     public void ClearHighScore()
     {
-        if(PlayerPrefs.HasKey("HighScore"))
+        if (PlayerPrefs.HasKey("HighScore"))
         {
             PlayerPrefs.DeleteKey("HighScore");
         }
+        clearHighScorePanel.SetActive(false);
+    }
+
+    public void DontClearHighScore()
+    {
+        clearHighScorePanel.SetActive(false);
     }
 }

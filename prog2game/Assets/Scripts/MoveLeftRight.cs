@@ -7,12 +7,17 @@ public class MoveLeftRight : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float maxPositionX;
     [SerializeField] private float minPositionX;
-    private float currentSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentSpeed = speed;
+
+        //Random chance to start moving left
+        if(Mathf.CeilToInt(Random.Range(0, 9))%2 == 0)
+        {
+            Turn();
+        }
+        
     }
 
     // Update is called once per frame
@@ -24,12 +29,12 @@ public class MoveLeftRight : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector2.right * currentSpeed * Time.deltaTime);
-        
+        //Moves the object left/right
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
+
         //Change direction when reaching the borders
-        if(transform.position.x <= minPositionX || transform.position.x >= maxPositionX)
+        if (transform.position.x <= minPositionX || transform.position.x >= maxPositionX)
         {
-            currentSpeed = -currentSpeed;
             Turn();
         }
     }
@@ -43,6 +48,10 @@ public class MoveLeftRight : MonoBehaviour
 
     private void Turn()
     {
+        //Start moving to the opposite direction
+        speed = -speed;
+
+        //Turn/mirror the object on the x axis
         float xScale = gameObject.transform.localScale.x;
         float yScale = gameObject.transform.localScale.y;
         gameObject.transform.localScale = new Vector2(-xScale, yScale);
