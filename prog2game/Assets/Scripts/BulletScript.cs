@@ -37,8 +37,10 @@ public class BulletScript : MonoBehaviour
         if(other.gameObject.CompareTag("Target"))
         {
             Debug.Log("Hit Target !");
-            int targetValue = other.GetComponent<TargetScript>().GetTargetValue();
+            TargetScript targetHitScript = other.GetComponent<TargetScript>();
+            int targetValue = targetHitScript.GetTargetValue();
             playerScript.IncreaseScore(targetValue);
+            targetHitScript.PlayHitSound();
         }
 
         //Hit bullet-destroy zone (missed all obstacles and targets)
