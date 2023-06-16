@@ -2497,7 +2497,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jogo Muito Legal
+  m_Text: Arco, Flecha e Pombos
 --- !u!222 &1522928821
 CanvasRenderer:
   m_ObjectHideFlags: 0
